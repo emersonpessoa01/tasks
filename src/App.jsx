@@ -8,7 +8,6 @@ const taskList = [
   // Adicione mais itens conforme necessário
 ];
 
-
 function App() {
   const [tasks, setTasks] = useState(taskList);
   const [newTask, setNewTask] = useState("");
@@ -26,6 +25,11 @@ function App() {
     ]);
     setNewTask(newTask);
   }
+  function removeTask(id){
+    /* Faz uma filtragem devolvendo apenas os itens diferente do id */
+    let filteredTasks = tasks.filter((value) => value.id !== id );
+    setTasks(filteredTasks);
+  }
   return (
     <div>
       <h1>Lista de Itens</h1>
@@ -36,8 +40,11 @@ function App() {
       />
       <button onClick={addNewTask}>Adicionar</button>
       <ul>
-        {tasks.map(({ id, title }) => (
-          <li key={id}>{title}</li>
+        {tasks.map(({ id, title }, index) => (
+          <li key={id}>
+            {index}-{title}
+            <button onClick={()=>removeTask(id)}>delete</button>
+          </li>
         ))}
       </ul>
     </div>
