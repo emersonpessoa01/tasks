@@ -8,51 +8,63 @@ import { v4 as uuidv4 } from "uuid";
   // Adicione mais itens conforme necessário
 ]; */
 
-const dataLoclaStorage = JSON.parse(localStorage.getItem("TAREFAS"));
+// type TaskProps = {
+//   id: string;
+//   title: string;
+// }[];
+
+const dataLocalStorage = JSON.parse(localStorage.getItem("TAREFAS") || "[]");
 function App() {
   // const [tasks, setTasks] = useState(taskList);
-  const [tasks, setTasks] = useState(dataLoclaStorage);
+  // const [tasks, setTasks] = useState<TaskProps[]>(dataLoclaStorage);
+  const [tasks, setTasks] = useState(dataLocalStorage);
   const [newTask, setNewTask] = useState("");
   // console.log(newTask);
-
-  function addNewTask(event) {
+  function handleAddNewTask(event) {
     event.preventDefault();
     setTasks([
       ...tasks,
       {
         // id: tasks.length + 1,
-        id: uuidv4,
+        id: uuidv4(),
         title: newTask,
       },
     ]);
-    setNewTask(newTask);
+    setNewTask("");
   }
-  function removeTask(id) {
+  function handleRemoveTask(id) {
     /* Faz uma filtragem devolvendo apenas os itens diferente do id */
     let filteredTasks = tasks.filter((value) => value.id !== id);
     setTasks(filteredTasks);
   }
 
+
+
   useEffect(() => {
     localStorage.setItem("TAREFAS", JSON.stringify(tasks));
   }, [tasks]);
+
   return (
     <div>
       <h1>Lista de Itens</h1>
-      <input
-        value={newTask}
-        onChange={(event) => setNewTask(event.target.value)}
-        type="text"
-      />
-      <button onClick={addNewTask}>Adicionar</button>
-      <ul>
-        {tasks.map(({ id, title }, index) => (
-          <li key={id}>
-            {index}-{title}
-            <button onClick={() => removeTask(id)}>delete</button>
-          </li>
-        ))}
-      </ul>
+      <form>
+        <input
+          autoFocus
+          value={newTask}
+          onChange={(event) => setNewTask(event.target.value)}
+          type="text"
+          // onKeyDown={handleKeyPress}
+        />
+        <button onClick={handleAddNewTask}>Adicionar</button>
+        <ul>
+          {tasks.map((task, index) => (
+            <li key={task.id}>
+              {index}-{task.title}
+              <button onClick={() => handleRemoveTask(task.id)}>delete</button>
+            </li>
+          ))}
+        </ul>
+      </form>
     </div>
   );
 }
