@@ -16,6 +16,7 @@ import Trash from "./components/Trash";
 // }[];
 
 const dataLocalStorage = JSON.parse(localStorage.getItem("TAREFAS") || "[]");
+
 function App() {
   // const [tasks, setTasks] = useState(taskList);
   // const [tasks, setTasks] = useState<TaskProps[]>(dataLoclaStorage);
@@ -23,9 +24,12 @@ function App() {
   const [newTask, setNewTask] = useState("");
   const [editTaskId, setEditTaskId] = useState("");
   const [saveButton, setSaveButton] = useState(false);
-  // console.log(newTask);
   function handleAddNewTask() {
     // event.preventDefault();
+    if (!newTask) {
+      alert("Digite uma tarefa!")
+      return;
+    }
     setTasks([
       ...tasks,
       {
@@ -47,7 +51,7 @@ function App() {
     if (task) {
       setNewTask(task.title);
       setEditTaskId(task.id);
-      console.log(task.id);
+      // console.log(task.id);
       setSaveButton(true);
     }
     return;
@@ -81,42 +85,51 @@ function App() {
   }, [tasks]);
 
   return (
-    <div>
-      <h1>Lista de Itens</h1>
+    <section className="App">
+      <div className="TodoWrapper">
+        <h1>Lista de tarefas</h1>
+        <div className="TodoForm">
+          <input
+            className="todo-input"
+            autoFocus
+            value={newTask}
+            onChange={(event) => setNewTask(event.target.value)}
+            type="text"
+            onKeyDown={handleKeyDown}
+            placeholder="Qual a tarefa de hoje?"
+          />
+          {saveButton ? (
+            <button className="todo-btn" onClick={handleSaveTask}>
+              Salvar
+            </button>
+          ) : (
+            <button className="todo-btn" onClick={handleAddNewTask}>
+              Adicionar
+            </button>
+          )}
+        </div>
 
-      <input
-        autoFocus
-        value={newTask}
-        onChange={(event) => setNewTask(event.target.value)}
-        type="text"
-        onKeyDown={handleKeyDown}
-      />
-      {saveButton ? (
-        <button onClick={handleSaveTask}>Salvar</button>
-      ) : (
-        <button onClick={handleAddNewTask}>Adicionar</button>
-      )}
-
-      <ul>
-        {tasks.map(({ id, title }, index) => (
-          <li key={id}>
-            {index + 1} - {title}
-            <span>
-              <button
-                onClick={() => {
-                  handleEditTask(id);
-                }}
-              >
-                <Pencil />
-              </button>
-              <button onClick={() => handleRemoveTask(id)}>
-                <Trash />
-              </button>
-            </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul>
+          {tasks.map(({ id, title }, index) => (
+            <li key={id}>
+              {index + 1} - {title}
+              <span>
+                <button
+                  onClick={() => {
+                    handleEditTask(id);
+                  }}
+                >
+                  <Pencil />
+                </button>
+                <button onClick={() => handleRemoveTask(id)}>
+                  <Trash />
+                </button>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 
