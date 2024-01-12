@@ -27,7 +27,7 @@ function App() {
   function handleAddNewTask() {
     // event.preventDefault();
     if (!newTask) {
-      alert("Digite uma tarefa!")
+      alert("Digite uma tarefa!");
       return;
     }
     setTasks([
@@ -51,10 +51,8 @@ function App() {
     if (task) {
       setNewTask(task.title);
       setEditTaskId(task.id);
-      // console.log(task.id);
       setSaveButton(true);
     }
-    return;
   }
 
   function handleSaveTask() {
@@ -110,18 +108,18 @@ function App() {
         </div>
 
         <ul>
-          {tasks.map(({ id, title }, index) => (
-            <li key={id}>
-              {index + 1} - {title}
+          {tasks.map((task, index) => (
+            <li key={task.id}>
+              {index + 1}-{task.title}
               <span>
                 <button
                   onClick={() => {
-                    handleEditTask(id);
+                    handleEditTask(task.id);
                   }}
                 >
                   <Pencil />
                 </button>
-                <button onClick={() => handleRemoveTask(id)}>
+                <button onClick={() => handleRemoveTask(task.id)}>
                   <Trash />
                 </button>
               </span>
