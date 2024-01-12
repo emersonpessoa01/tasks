@@ -47,7 +47,7 @@ function App() {
     if (task) {
       setNewTask(task.title);
       setEditTaskId(task.id);
-      console.log(task.id)
+      console.log(task.id);
       setSaveButton(true);
     }
     return;
@@ -58,6 +58,13 @@ function App() {
     if (task) {
       task.title = newTask;
       setSaveButton(false);
+    }
+    setTasks([...tasks]);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === "Enter" && event.target.value !== "") {
+      handleAddNewTask();
     }
   }
 
@@ -70,10 +77,11 @@ function App() {
       <h1>Lista de Itens</h1>
 
       <input
+        autoFocus
         value={newTask}
         onChange={(event) => setNewTask(event.target.value)}
         type="text"
-        // onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
       />
       {saveButton ? (
         <button onClick={handleSaveTask}>Salvar</button>
