@@ -67,6 +67,11 @@ function App() {
       handleAddNewTask();
     }
   }
+  // function handleKeyDown(event) {
+  //   if (event.keyCode === 13 && event.target.value !== "") {
+  //     handleAddNewTask();
+  //   }
+  // }
 
   useEffect(() => {
     localStorage.setItem("TAREFAS", JSON.stringify(tasks));
