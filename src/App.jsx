@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Pencil from "./components/pencil";
+import Trash from "./components/Trash";
 
 /* const taskList = [
   { id: "1", title: "Tarefa 01" },
@@ -19,9 +21,11 @@ function App() {
   // const [tasks, setTasks] = useState<TaskProps[]>(dataLoclaStorage);
   const [tasks, setTasks] = useState(dataLocalStorage);
   const [newTask, setNewTask] = useState("");
+  const [editTaskId, setEditTaskId] = useState("");
+  const [saveButton, setSaveButton] = useState(false);
   // console.log(newTask);
-  function handleAddNewTask(event) {
-    event.preventDefault();
+  function handleAddNewTask() {
+    // event.preventDefault();
     setTasks([
       ...tasks,
       {
@@ -38,7 +42,24 @@ function App() {
     setTasks(filteredTasks);
   }
 
+  function handleEditTask(id) {
+    const task = tasks.find((task) => task.id === id);
+    if (task) {
+      setNewTask(task.title);
+      setEditTaskId(task.id);
+      console.log(task.id)
+      setSaveButton(true);
+    }
+    return;
+  }
 
+  function handleSaveTask() {
+    const task = tasks.find((task) => task.id === editTaskId);
+    if (task) {
+      task.title = newTask;
+      setSaveButton(false);
+    }
+  }
 
   useEffect(() => {
     localStorage.setItem("TAREFAS", JSON.stringify(tasks));
@@ -47,24 +68,38 @@ function App() {
   return (
     <div>
       <h1>Lista de Itens</h1>
-      <form>
-        <input
-          autoFocus
-          value={newTask}
-          onChange={(event) => setNewTask(event.target.value)}
-          type="text"
-          // onKeyDown={handleKeyPress}
-        />
+
+      <input
+        value={newTask}
+        onChange={(event) => setNewTask(event.target.value)}
+        type="text"
+        // onKeyDown={handleKeyPress}
+      />
+      {saveButton ? (
+        <button onClick={handleSaveTask}>Salvar</button>
+      ) : (
         <button onClick={handleAddNewTask}>Adicionar</button>
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={task.id}>
-              {index}-{task.title}
-              <button onClick={() => handleRemoveTask(task.id)}>delete</button>
-            </li>
-          ))}
-        </ul>
-      </form>
+      )}
+
+      <ul>
+        {tasks.map(({ id, title }, index) => (
+          <li key={id}>
+            {index}-{title}
+            <span>
+              <button
+                onClick={() => {
+                  handleEditTask(id);
+                }}
+              >
+                <Pencil />
+              </button>
+              <button onClick={() => handleRemoveTask(id)}>
+                <Trash />
+              </button>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
