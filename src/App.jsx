@@ -66,11 +66,14 @@ function App() {
     if (event.key === "Enter" && event.target.value !== "") {
       handleAddNewTask();
     }
+    // console.log(event.keyCode)
   }
   // function handleKeyDown(event) {
-  //   if (event.keyCode === 13 && event.target.value !== "") {
+  //   let key = event.keyCode;
+  //   if (key === 13 && event.target.value !== "") {
   //     handleAddNewTask();
   //   }
+  //   console.log(key)
   // }
 
   useEffect(() => {
@@ -97,7 +100,7 @@ function App() {
       <ul>
         {tasks.map(({ id, title }, index) => (
           <li key={id}>
-            {index}-{title}
+            {index + 1} - {title}
             <span>
               <button
                 onClick={() => {
