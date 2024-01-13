@@ -47,20 +47,30 @@ h1 {
   color: #ffffff4d;
 }
 .todo-btn {
-    background: #8758ff;
-    color: #fff;
-    border: none;
-    padding: 0.55rem;
-    cursor: pointer;
-  }
-ul{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: flex-start;
+  background: #8758ff;
+  color: #fff;
+  border: none;
+  padding: 0.55rem;
+  cursor: pointer;
 }
-li{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+ul {
+  
+}
+li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 7%;
+  color: #1a1a40;
+  background: #cecaca;
+  border-radius: .4rem;
+  margin-bottom:8px;
+  
+}
+li span button {
+  margin-left: 12px;
+  padding-left: 12px;
+  /* margin:0 auto; */
 }

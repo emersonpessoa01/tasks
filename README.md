@@ -1,8 +1,36 @@
-# React + Vite
+## Sobre o desafio todolist
+	
+O Todolist foi feito no Reactjs onde apresenta as funcionalidades do CRUD.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Conforme o desafio, possui o localStorage para armazenar os dados de entrada no navegador.
 
-Currently, two official plugins are available:
+<p align="center">
+  <img src="./src/image/readme.png" alt="keyboard virtual Logo" width="100%">
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Instruções técnicas
+
+
+
+### 1. Clone o repositório:
+```bash
+git clone https://github.com/emersonpessoa01/tasks
+```
+
+### 2. Instale as dependências e inicie o projeto
+
+Acesse a pasta do projeto:
+```bash
+cd task
+```
+
+Instale as dependências do projeto:
+```bash
+yarn install
+```
+
+Inicie o projeto:
+```bash
+yarn dev
+```
+
